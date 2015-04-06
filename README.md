@@ -41,10 +41,8 @@ looked around the filesystem for a bit, you can turn off tracing by either:
 
 or typing into the Python interaction loop:
 
-	```
 	import rpchelp
 	rpchelp.trace_rpc = 0
-	```
 
 See [here](pyfs.html) for more information on the mapping 
 implemented by pyfs.  The mapping isn't perfect, but works well enough
