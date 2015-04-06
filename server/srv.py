@@ -82,7 +82,7 @@ class MntSrv (rfc1094.MOUNTPROG_1, HostAccessControl):
     def __init__ (self, fs):
         self.fs = fs
         rfc1094.MOUNTPROG_1.__init__ (self)
-    def MOUNTPROC_NULL (self):
+    def MOUNTPROC_NULL (self, arg):
         return None
     
     def MOUNTPROC_MNT (self, dirpath):
@@ -102,17 +102,17 @@ class NfsSrv (rfc1094.NFS_PROGRAM_2, HostAccessControl):
     def __init__ (self, fs):
         self.fs = fs
         rfc1094.NFS_PROGRAM_2.__init__ (self)
-    def NFSPROC_NULL (self):
+    def NFSPROC_NULL (self, arg):
         return None
     def NFSPROC_GETATTR (self, fh):
-        as = rfc1094.attrstat ()
+        attrstat = rfc1094.attrstat ()
         fil = self.fs.get_fil (fh)
         if fil == None:
-            as.status = rfc1094.NFSERR_STALE
+            attrstat.status = rfc1094.NFSERR_STALE
         else:
-            as.status = rfc1094.NFS_OK
-            as._data = fil
-        return as
+            attrstat.status = rfc1094.NFS_OK
+            attrstat._data = fil
+        return attrstat
     
     def NFSPROC_SETATTR (self, sattrargs):
         rv = rfc1094.attrstat ()
